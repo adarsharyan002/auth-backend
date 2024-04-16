@@ -17,8 +17,8 @@ const transporter = nodemailer.createTransport({
    
       auth: {
             
-            user:"adarsharyanmuz@gmail.com", 
-            pass:"xgpibvvtnbtrmfts"
+            user:process.env.EMAIL_USERNAME, 
+            pass:process.env.PASSWORD
       }
 });
 
@@ -36,7 +36,7 @@ const register = async (req: Request, res: Response) => {
       const user = await User.create({ ...req.body });
   
       const token = user.createJWT();
-      const url = `https://delite-asg.vercel.app/verify-email/${token}`;
+      const url = `${process.env.FRONT_END_URI}/verify-email/${token}`;
   
       transporter.sendMail({
         from: {
